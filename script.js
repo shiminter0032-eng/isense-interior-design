@@ -70,7 +70,7 @@ form.addEventListener("submit", function(event) {
         form.querySelector("textarea").value;
 
 
-    const whatsappNumber = "60123456789";
+    const whatsappNumber = "60127171176";
 
     const whatsappMessage =
         `Hello ISENSE Interior Design,%0A%0A` +
