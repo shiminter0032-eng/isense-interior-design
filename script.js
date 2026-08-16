@@ -1,46 +1,163 @@
 // ================================
+// ISENSE INTERIOR DESIGN
+// MAIN JAVASCRIPT
+// ================================
+
+
+// ================================
 // MOBILE MENU
 // ================================
 
 const menuButton = document.getElementById("menuButton");
 const navLinks = document.querySelector(".nav-links");
 
-menuButton.addEventListener("click", () => {
-    navLinks.classList.toggle("mobile-active");
-});
+if (menuButton && navLinks) {
+
+    menuButton.addEventListener("click", () => {
+
+        navLinks.classList.toggle("mobile-active");
+
+    });
+
+}
 
 
 // ================================
-// PROJECT FILTER
+// CLOSE MOBILE MENU
+// WHEN CLICKING A NAVIGATION LINK
 // ================================
 
-const filters = document.querySelectorAll(".filter");
-const projects = document.querySelectorAll(".project-card");
+if (navLinks) {
 
-filters.forEach(filter => {
+    const navItems = navLinks.querySelectorAll("a");
 
-    filter.addEventListener("click", () => {
+    navItems.forEach(link => {
 
-        filters.forEach(btn => {
-            btn.classList.remove("active");
-        });
+        link.addEventListener("click", () => {
 
-        filter.classList.add("active");
-
-        const category = filter.dataset.filter;
-
-        projects.forEach(project => {
-
-            if (
-                category === "all" ||
-                project.classList.contains(category)
-            ) {
-                project.style.display = "block";
-            } else {
-                project.style.display = "none";
-            }
+            navLinks.classList.remove("mobile-active");
 
         });
+
+    });
+
+}
+
+
+// ================================
+// CONTACT FORM → WHATSAPP
+// ================================
+
+const form = document.getElementById("contactForm");
+
+if (form) {
+
+    form.addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+
+        // Get form values
+
+        const name =
+            form.querySelector('input[name="name"]')?.value ||
+            form.querySelector('input[type="text"]')?.value ||
+            "";
+
+        const phone =
+            form.querySelector('input[name="phone"]')?.value ||
+            form.querySelector('input[type="tel"]')?.value ||
+            "";
+
+        const project =
+            form.querySelector("select")?.value ||
+            "";
+
+        const message =
+            form.querySelector("textarea")?.value ||
+            "";
+
+
+        // ISENSE WhatsApp number
+
+        const whatsappNumber = "60127171176";
+
+
+        // Create WhatsApp message
+
+        const whatsappMessage =
+            `Hi ISENSE Interior Design,%0A%0A` +
+            `Name: ${encodeURIComponent(name)}%0A` +
+            `Phone: ${encodeURIComponent(phone)}%0A` +
+            `Project Type: ${encodeURIComponent(project)}%0A` +
+            `Project Details: ${encodeURIComponent(message)}`;
+
+
+        // Open WhatsApp
+
+        window.open(
+            `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`,
+            "_blank"
+        );
+
+    });
+
+}
+
+
+// ================================
+// HEADER SCROLL EFFECT
+// ================================
+
+const header = document.querySelector(".header");
+
+if (header) {
+
+    window.addEventListener("scroll", () => {
+
+        if (window.scrollY > 50) {
+
+            header.classList.add("scrolled");
+
+        } else {
+
+            header.classList.remove("scrolled");
+
+        }
+
+    });
+
+}
+
+
+// ================================
+// SMOOTH SCROLL
+// ================================
+
+const smoothLinks = document.querySelectorAll('a[href^="#"]');
+
+smoothLinks.forEach(link => {
+
+    link.addEventListener("click", function(event) {
+
+        const targetId = this.getAttribute("href");
+
+        if (
+            targetId &&
+            targetId !== "#" &&
+            document.querySelector(targetId)
+        ) {
+
+            event.preventDefault();
+
+            const target =
+                document.querySelector(targetId);
+
+            target.scrollIntoView({
+                behavior: "smooth"
+            });
+
+        }
 
     });
 
@@ -48,41 +165,15 @@ filters.forEach(filter => {
 
 
 // ================================
-// CONTACT FORM
+// CURRENT YEAR
 // ================================
 
-const form = document.getElementById("contactForm");
+const yearElements =
+    document.querySelectorAll(".current-year");
 
-form.addEventListener("submit", function(event) {
+yearElements.forEach(element => {
 
-    event.preventDefault();
-
-    const name =
-        form.querySelector('input[type="text"]').value;
-
-    const phone =
-        form.querySelector('input[type="tel"]').value;
-
-    const project =
-        form.querySelector("select").value;
-
-    const message =
-        form.querySelector("textarea").value;
-
-
-    const whatsappNumber = "60127171176";
-
-    const whatsappMessage =
-        `Hello ISENSE Interior Design,%0A%0A` +
-        `Name: ${name}%0A` +
-        `Phone: ${phone}%0A` +
-        `Project Type: ${project}%0A` +
-        `Project Details: ${message}`;
-
-
-    window.open(
-        `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`,
-        "_blank"
-    );
+    element.textContent =
+        new Date().getFullYear();
 
 });
